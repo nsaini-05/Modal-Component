@@ -3,18 +3,27 @@ const modal = document.querySelector(".card-container ");
 const overlay_conatiner = document.querySelector(".overlay_container");
 const primary_btns = document.querySelectorAll(".btn-primary");
 
-closeButton.addEventListener("click", () => {
-  modal.classList.add("hide");
-  overlay_conatiner.classList.toggle("hide");
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && !modal.classList.contains("hide")) {
+    closeModal();
+  }
 });
-primary_btns.forEach((pb) =>
-  pb.addEventListener("click", () => {
-    overlay_conatiner.classList.toggle("hide");
-    modal.classList.toggle("hide");
-  })
-);
+
+const closeModal = () => {
+  modal.classList.add("hide");
+  overlay_conatiner.classList.add("hide");
+};
+
+const showModal = () => {
+  overlay_conatiner.classList.remove("hide");
+  modal.classList.remove("hide");
+};
+
+closeButton.addEventListener("click", () => {
+  closeModal();
+});
+primary_btns.forEach((pb) => pb.addEventListener("click", () => showModal()));
 
 overlay_conatiner.addEventListener("click", () => {
-  modal.classList.toggle("hide");
-  overlay_conatiner.classList.toggle("hide");
+  closeModal();
 });
